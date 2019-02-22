@@ -10,10 +10,11 @@ public class WeightedRelation {
 	 */
 	Boolean isSeconInstance;
 
-	public WeightedRelation(int weight, Individual individual) {
+	public WeightedRelation( Individual individual,int weight, boolean isSecondInstance) {
 		super();
 		this.weight = weight;
 		this.individual = individual;
+		this.isSeconInstance=isSecondInstance;
 	}
 
 	public int getWeight() {
