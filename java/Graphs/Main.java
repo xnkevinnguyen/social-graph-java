@@ -3,7 +3,6 @@ package Graphs;
 import java.io.IOException;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
@@ -26,7 +25,11 @@ public class Main {
 		String choice = "no choice";
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		while (!choice.equals("a") && !choice.equals("b") && !choice.equals("c") && !choice.equals("d") && !choice.equals("e"))
+		// ----- Autres paramètres -----
+		SocialGraph guessWho = new SocialGraph();
+		Identifier play = new Identifier();
+		
+		while (!choice.equals("e"))
 		{
 			
 			System.out.println("\n================================");
@@ -41,14 +44,36 @@ public class Main {
 			System.out.print("Votre choix ?		");
 			
 			choice = br.readLine();
+			
+			// -- Switch (la réelle méthode switch ne fonctionne pas avec des String pour les versions < Java7)
+			
+			if (choice.equals("a")){
+				// ---- Créer le réseau social ----
+				guessWho.creerReseauSocial(path_individus, path_relations);
+			}
+			else if (choice.equals("b")){
+				// ---- Afficher le réseau social ----
+				guessWho.afficherReseauSocial();
+			}
+			else if(choice.equals("c")){
+				// ---- Jouer à Qui est-ce ? ----
+				// Sélectionne deux individus au hasard
+				//Individual first_people = play.SelectARandomPeople(guessWho);
+				//Individual second_people = play.SelectARandomPeople(guessWho);
+				
+				//Lance la partie
+				//play.IdentifierIndividus(first_people, second_people);
+				
+			}
+			else if (choice.equals("d")){
+				// ---- Afficher le résultat ----
+			}
+			
+			else if(choice.equals("e")){
+				// ---- Quitter ----
+				System.out.println("Au revoir !");
+			}
 		}
-		
-		
-		SocialGraph guessWho = new SocialGraph();
-		
-		guessWho.creerReseauSocial(path_individus, path_relations);
-
-		guessWho.afficherReseauSocial();
 		
 	}
 
