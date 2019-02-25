@@ -1,2 +1,5 @@
 #
+.project
 *.pdf
+.classpath
+/bin/

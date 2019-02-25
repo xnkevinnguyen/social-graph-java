@@ -7,6 +7,8 @@ import java.io.*;
 
 public class SocialGraph {
 	private Map<String, Individual> graphMap;
+	private Map<String, Individual> subGraphMap;
+	
 
 	/*
 	 * Input: name of files for the list of individual and the list of relations
@@ -16,6 +18,7 @@ public class SocialGraph {
 	public SocialGraph() {
 		super();
 	}
+	
 
 	
 
@@ -95,6 +98,37 @@ public class SocialGraph {
 			}
 		}
 
+	}
+	
+	public void afficherSubGraphMap() {
+		for (Map.Entry<String, Individual> individual : subGraphMap.entrySet()) {
+
+			for (WeightedRelation relation : individual.getValue().relations) {
+				if(!relation.isSeconInstance)
+				System.out.println("(" + individual.getValue().getName() + ", " + relation.getIndividual().getName() + ", "+ relation.getWeight()+ ")");
+			}
+		}
+
+	}
+	
+
+	
+	public void enleverArcsIndesirables(char cheveux, char yeux, String departement)
+	{
+		Map<String, Individual> subGraph = new HashMap<String, Individual>(graphMap);
+		
+		for (Map.Entry<String, Individual> individual : subGraph.entrySet()) {
+
+			for (WeightedRelation relation : individual.getValue().relations) {
+					if (cheveux == individual.getValue().getHairColor() && cheveux == relation.getIndividual().getHairColor())
+						relation.setWeight(0);
+					if (yeux == individual.getValue().getEyesColor() && yeux == relation.getIndividual().getEyesColor()) 
+						relation.setWeight(0);
+					if (departement == individual.getValue().getDepartment() && departement == relation.getIndividual().getDepartment())
+						relation.setWeight(0);
+			}
+		}
+		subGraphMap = subGraph;
 	}
 
 }

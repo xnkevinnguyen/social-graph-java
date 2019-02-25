@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Map;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
@@ -16,6 +17,9 @@ public class Main {
 		 * Noé : 
 		 * - /Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Individus.txt
 		 * - /Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Relations.txt
+		 * 
+		 * - C:\Users\youce\OneDrive\Cours\LOG2810\TP1\social-graph-java\ressources\Individus.txt
+		 * - C:\Users\youce\OneDrive\Cours\LOG2810\TP1\social-graph-java\ressources\Relations.txt
 		 */
 		
 		// ----- Paths -----
@@ -28,7 +32,8 @@ public class Main {
 		boolean a_done = false;
 		boolean c_done = false;
 		
-		// ----- Autres paramètres -----
+		// ----- Autres paramètres -----a
+		
 		SocialGraph guessWho = new SocialGraph();
 		Identifier play = new Identifier();
 		
@@ -92,6 +97,9 @@ public class Main {
 			else if (choice.equals("d")){
 				if (c_done == true){
 					// ---- Afficher le résultat ----
+					System.out.println("Sous-Graph des caract�ristiques d�sirables:");
+					guessWho.enleverArcsIndesirables('R', 'B', "GP");
+					guessWho.afficherSubGraphMap();
 					
 				}
 				else {
@@ -100,6 +108,11 @@ public class Main {
 			}
 			
 			else if(choice.equals("e")){
+				// ---- Quitter ----
+				System.out.println("Au revoir !");
+			}
+			
+			else if(choice.equals("s")){
 				// ---- Quitter ----
 				System.out.println("Au revoir !");
 			}
