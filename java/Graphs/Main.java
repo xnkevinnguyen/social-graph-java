@@ -18,8 +18,9 @@ public class Main {
 		 * - /Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Relations.txt
 		 */
 		
-		String path_individus = "/Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Individus.txt";
-		String path_relations = "/Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Relations.txt";
+		// ----- Paths -----
+		String path_individus = "";
+		String path_relations = "";
 		
 		// ----- Paramètres Interfaces -----
 		String choice = "no choice";
@@ -51,6 +52,13 @@ public class Main {
 			
 			if (choice.equals("a")){
 				// ---- Créer le réseau social ----
+				System.out.println("Entrez le chemin d'accès à : Individus.txt");
+				System.out.println("Exemple : /Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Individus.txt\n");
+				path_individus = br.readLine();
+				System.out.println("Entrez le chemin d'accès à : Relations.txt");
+				System.out.println("Exemple : /Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Relations.txt\n");
+				path_relations = br.readLine();
+				
 				guessWho.creerReseauSocial(path_individus, path_relations);
 				a_done = true;
 			}
