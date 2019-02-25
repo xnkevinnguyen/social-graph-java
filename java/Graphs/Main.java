@@ -24,6 +24,8 @@ public class Main {
 		// ----- Paramètres Interfaces -----
 		String choice = "no choice";
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		boolean a_done = false;
+		boolean c_done = false;
 		
 		// ----- Autres paramètres -----
 		SocialGraph guessWho = new SocialGraph();
@@ -50,28 +52,53 @@ public class Main {
 			if (choice.equals("a")){
 				// ---- Créer le réseau social ----
 				guessWho.creerReseauSocial(path_individus, path_relations);
+				a_done = true;
 			}
 			else if (choice.equals("b")){
-				// ---- Afficher le réseau social ----
-				guessWho.afficherReseauSocial();
+				
+				if (a_done == true){
+					// ---- Afficher le réseau social ----
+					guessWho.afficherReseauSocial();
+				}
+				else {
+					System.out.println("(!) ---- ÉTAPE A MANQUANTE ---- (!)");
+				}
 			}
 			else if(choice.equals("c")){
-				// ---- Jouer à Qui est-ce ? ----
-				// Sélectionne deux individus au hasard
-				//Individual first_people = play.SelectARandomPeople(guessWho);
-				//Individual second_people = play.SelectARandomPeople(guessWho);
-				
-				//Lance la partie
-				//play.IdentifierIndividus(first_people, second_people);
+				if (a_done == true){
+					// ---- Jouer à Qui est-ce ? ----
+					// Sélectionne deux individus au hasard
+					//Individual first_people = play.SelectARandomPeople(guessWho);
+					//Individual second_people = play.SelectARandomPeople(guessWho);
+					
+					//Lance la partie
+					//play.IdentifierIndividus(first_people, second_people);
+					
+					c_done = true;
+				}
+				else {
+					System.out.println("(!) ---- ÉTAPE A MANQUANTE ---- (!)");
+				}
 				
 			}
 			else if (choice.equals("d")){
-				// ---- Afficher le résultat ----
+				if (c_done == true){
+					// ---- Afficher le résultat ----
+					
+				}
+				else {
+					System.out.println("(!) ---- ÉTAPE C MANQUANTE ---- (!)");
+				}
 			}
 			
 			else if(choice.equals("e")){
 				// ---- Quitter ----
 				System.out.println("Au revoir !");
+			}
+			
+			else{
+				System.out.println("\n--------------------------------");
+				System.out.println("(!) ---- INDEX INVALIDE ---- (!)");
 			}
 		}
 		
