@@ -1,13 +1,13 @@
 package Graphs;
 
 
-import java.util.HashMap;
-import java.util.Map;
 import java.io.*;
+import java.util.*;
 
 public class SocialGraph {
 	private Map<String, Individual> graphMap;
 	private Map<String, Individual> subGraphMap;
+	private Individual personneSource;
 	
 
 	/*
@@ -20,7 +20,15 @@ public class SocialGraph {
 	}
 	
 
-	
+	public Map<String, Individual> getGraphMap() {
+		return graphMap;
+	}
+
+
+	public Map<String, Individual> getSubGraphMap() {
+		return subGraphMap;
+	}
+
 
 	public void creerReseauSocial(String nomFichierIndividu, String nomFichierRelation) throws IOException {
 
@@ -58,7 +66,7 @@ public class SocialGraph {
 			System.out.println(line);
 			String[] inputs = line.split(" ");
 			this.rajouterRelationDeuxDirection(inputs[0], inputs[2], Integer.parseInt(inputs[1]));
-			;
+	
 		}
 
 	}
@@ -83,7 +91,7 @@ public class SocialGraph {
 		BufferedReader br = new BufferedReader(fr);
 
 		return br;
-
+		
 	}
 
 	/*
@@ -100,6 +108,30 @@ public class SocialGraph {
 
 	}
 	
+	/*==============================================================================================================
+	||C4. Écrire une fonction « enleverArcsIndesirables() » où l’agent génère le sous-graphe des caractéristiques||
+	||désirables. Cette fonction prend en paramètre trois caractéristiques indésirables.						 ||
+	==============================================================================================================*/
+	public void enleverArcsIndesirables(char cheveux, char yeux, String departement)
+	{
+		Map<String, Individual> subGraph = new HashMap<String, Individual>(graphMap);
+		
+		for (Map.Entry<String, Individual> individual : subGraph.entrySet()) {
+			Map<Individual, Integer> adjNds = new HashMap<>();
+			for (WeightedRelation relation : individual.getValue().relations) {
+					if (cheveux == individual.getValue().getHairColor() && cheveux == relation.getIndividual().getHairColor())
+						relation.setWeight(0);
+					if (yeux == individual.getValue().getEyesColor() && yeux == relation.getIndividual().getEyesColor()) 
+						relation.setWeight(0);
+					if (departement == individual.getValue().getDepartment() && departement == relation.getIndividual().getDepartment())
+						relation.setWeight(0);
+					adjNds.put(relation.getIndividual(), relation.getWeight());
+			}
+			individual.getValue().setAdjacentNodes(adjNds);
+		}
+		subGraphMap = subGraph;
+	}
+	
 	public void afficherSubGraphMap() {
 		for (Map.Entry<String, Individual> individual : subGraphMap.entrySet()) {
 
@@ -111,24 +143,98 @@ public class SocialGraph {
 
 	}
 	
-
+	/*=======================================================================================================
+	|| C5. Écrire une fonction « trouverChaineContacts() » où l’agent trouve la meilleure chaîne de contacts||
+	||entre deux individus à partir du sous-graphe des caractéristiques désirables. Cette fonction prend    ||
+	||en paramètre deux noms d’individus.																	||
+	=========================================================================================================*/
 	
-	public void enleverArcsIndesirables(char cheveux, char yeux, String departement)
+	private static Individual getLowestDistanceNode(Set < Individual > unsettledNodes) {
+	    Individual lowestDistanceNode = null;
+	    int lowestDistance = Integer.MAX_VALUE;
+	    for (Individual node: unsettledNodes) {
+	        int nodeDistance = node.getDistance();
+	        if (nodeDistance < lowestDistance && nodeDistance != 0) {
+	            lowestDistance = nodeDistance;
+	            lowestDistanceNode = node;
+	        }
+	    }
+	    return lowestDistanceNode;
+	}
+	
+	private static void calculateMinimumDistance(Individual evaluationNode,Integer edgeWeigh, Individual sourceNode) {
+		Integer sourceDistance = sourceNode.getDistance();
+		    if (sourceDistance + edgeWeigh < evaluationNode.getDistance() && edgeWeigh != 0) {
+		        evaluationNode.setDistance(sourceDistance + edgeWeigh);
+		        LinkedList<Individual> shortestPath = new LinkedList<>(sourceNode.getShortestPath());
+		        shortestPath.add(sourceNode);
+		        evaluationNode.setShortestPath(shortestPath);
+		    }
+	}
+	
+	
+	private Map<String, Individual> calculateShortestPathFromSource(Map<String, Individual> subGraphMap, String name) {
+	    
+		Individual source = subGraphMap.get(name);
+		source.setDistance(1);
+	 
+	    Set<Individual> settledNodes = new HashSet<>();
+	    Set<Individual> unsettledNodes = new HashSet<>();
+	 
+	    unsettledNodes.add(source);
+	 
+	    while (unsettledNodes.size() != 0) {
+	        Individual currentNode = getLowestDistanceNode(unsettledNodes);
+	        if (currentNode == null)
+	        	return subGraphMap;
+	        unsettledNodes.remove(currentNode);
+	        for (Map.Entry<Individual, Integer> adjacencyPair: currentNode.getAdjacentNodes().entrySet()) {
+	            Individual adjacentNode = adjacencyPair.getKey();
+	            Integer edgeWeight = adjacencyPair.getValue();
+	            if (!settledNodes.contains(adjacentNode)) {
+	                calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
+	                unsettledNodes.add(adjacentNode);
+	            }
+	        }
+	        settledNodes.add(currentNode);
+	    }
+	    return subGraphMap;
+	}
+	
+	public List<Individual> trouverChaineContacts(String name1, String name2)
 	{
-		Map<String, Individual> subGraph = new HashMap<String, Individual>(graphMap);
+		Map<String, Individual> subGraph = this.calculateShortestPathFromSource(subGraphMap, name1);
+		personneSource = subGraph.get(name1);
+		Individual person2 = subGraph.get(name2);
+		List<Individual> shortestPath = person2.getShortestPath();
+		return shortestPath;
+	}
+	
+	
+	/*Afficher une chaîne de contact à partir de l'individu dans l'attribut personneSource jusqu'à l'individu passé en paramètre "name" */
+	public void afficherChaineContacts(String name)
+	{
 		
-		for (Map.Entry<String, Individual> individual : subGraph.entrySet()) {
-
-			for (WeightedRelation relation : individual.getValue().relations) {
-					if (cheveux == individual.getValue().getHairColor() && cheveux == relation.getIndividual().getHairColor())
-						relation.setWeight(0);
-					if (yeux == individual.getValue().getEyesColor() && yeux == relation.getIndividual().getEyesColor()) 
-						relation.setWeight(0);
-					if (departement == individual.getValue().getDepartment() && departement == relation.getIndividual().getDepartment())
-						relation.setWeight(0);
-			}
+		Individual person = subGraphMap.get(name);
+		List<Individual> shortestPath = person.getShortestPath();
+		if (shortestPath.isEmpty()) {
+			System.out.println("Pas de chaîne possible entre " + personneSource.getName() + " et " + name);
 		}
-		subGraphMap = subGraph;
+		else {
+			for (int i=0; i < shortestPath.size(); i++) {
+				System.out.print(shortestPath.get(i).getName() + " --> ");	
+			}
+			System.out.print(name);
+			System.out.println();
+		}
+		
+			
 	}
 
+
 }
+
+
+
+ 
+

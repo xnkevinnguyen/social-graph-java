@@ -59,10 +59,10 @@ public class Main {
 				// ---- Créer le réseau social ----
 				System.out.println("Entrez le chemin d'accès à : Individus.txt");
 				System.out.println("Exemple : /Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Individus.txt\n");
-				path_individus = br.readLine();
+				path_individus = "C:\\Users\\youce\\OneDrive\\Cours\\LOG2810\\TP1\\social-graph-java\\ressources\\Individus.txt";//br.readLine();
 				System.out.println("Entrez le chemin d'accès à : Relations.txt");
 				System.out.println("Exemple : /Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Relations.txt\n");
-				path_relations = br.readLine();
+				path_relations = "C:\\Users\\youce\\OneDrive\\Cours\\LOG2810\\TP1\\social-graph-java\\ressources\\Relations.txt";//br.readLine();
 				
 				guessWho.creerReseauSocial(path_individus, path_relations);
 				a_done = true;
@@ -100,7 +100,8 @@ public class Main {
 					System.out.println("Sous-Graph des caract�ristiques d�sirables:");
 					guessWho.enleverArcsIndesirables('R', 'B', "GP");
 					guessWho.afficherSubGraphMap();
-					
+					guessWho.trouverChaineContacts("fabiola", "rita");
+					guessWho.afficherChaineContacts("rita");
 				}
 				else {
 					System.out.println("(!) ---- ÉTAPE C MANQUANTE ---- (!)");

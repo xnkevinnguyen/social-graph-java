@@ -1,7 +1,6 @@
 package Graphs;
 
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Individual {
 	private String name;
@@ -9,12 +8,13 @@ public class Individual {
 	private char eyesColor;
 	private String department;
 	Stack<WeightedRelation> relations= new Stack<WeightedRelation>();
+    private List<Individual> shortestPath = new LinkedList<>();
+    private Integer distance = Integer.MAX_VALUE;
+    Map<Individual, Integer> adjacentNodes = new HashMap<>();
 	
 	public Individual() {
 		super();
 	}
-	
-	
 
 	public Individual(String name, char hairColor, char eyesColor, String department) {
 		super();
@@ -24,6 +24,7 @@ public class Individual {
 		this.department = department;
 		//this.relations = new Stack<WeightedRelation> ();
 	}
+	
 	public Stack<WeightedRelation> getRelations() {
 		return relations;
 	}
@@ -31,25 +32,56 @@ public class Individual {
 	public void setRelations(Stack<WeightedRelation> relations) {
 		this.relations = relations;
 	}
+	
 	public void addRelation(WeightedRelation relation) {
 		this.relations.push(relation);
+		 adjacentNodes.put(relation.getIndividual(), relation.getWeight());
+	}
+	
+	public List<Individual> getShortestPath() {
+		return shortestPath;
+	}
+	
+	public void setShortestPath(List<Individual> shortestPath) {
+		this.shortestPath = shortestPath;
+	}
+	
+	public Integer getDistance() {
+		return distance;
+	}
+	
+	public void setDistance(Integer distance) {
+		this.distance = distance;
+	}
+	
+	public Map<Individual, Integer> getAdjacentNodes() {
+		return adjacentNodes;
+	}
+	
+	public void setAdjacentNodes(Map<Individual, Integer> adjacentNodes) {
+		this.adjacentNodes = adjacentNodes;
 	}
 	
 	public char getHairColor() {
 		return hairColor;
 	}
+	
 	public void setHairColor(char hairColor) {
 		this.hairColor = hairColor;
 	}
+	
 	public char getEyesColor() {
 		return eyesColor;
 	}
+	
 	public void setEyesColor(char eyesColor) {
 		this.eyesColor = eyesColor;
 	}
+	
 	public String getDepartment() {
 		return department;
 	}
+	
 	public void setDepartment(String department) {
 		this.department = department;
 	}
@@ -58,12 +90,15 @@ public class Individual {
 		super();
 		this.name = name;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public void print() {
 		System.out.print(name);
 	}
