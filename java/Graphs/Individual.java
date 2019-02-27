@@ -15,7 +15,18 @@ public class Individual {
 	public Individual() {
 		super();
 	}
-
+	
+	public Individual(Individual copy) {
+		super();
+		this.name = copy.name;
+		this.hairColor = copy.hairColor;
+		this.eyesColor = copy.eyesColor;
+		this.department = copy.department;
+		this.relations = copy.relations;
+		this.shortestPath = copy.shortestPath;
+		this.distance = copy.distance;
+		this.adjacentNodes = copy.adjacentNodes;
+	}
 	public Individual(String name, char hairColor, char eyesColor, String department) {
 		super();
 		this.name = name;

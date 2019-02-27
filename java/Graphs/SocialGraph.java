@@ -108,16 +108,29 @@ public class SocialGraph {
 
 	}
 	
+
 	/*==============================================================================================================
 	||C4. Écrire une fonction « enleverArcsIndesirables() » où l’agent génère le sous-graphe des caractéristiques||
 	||désirables. Cette fonction prend en paramètre trois caractéristiques indésirables.						 ||
 	==============================================================================================================*/
 	public void enleverArcsIndesirables(char cheveux, char yeux, String departement)
 	{
-		Map<String, Individual> subGraph = new HashMap<String, Individual>(graphMap);
+	    HashMap<String, Individual> subGraph = new HashMap<String, Individual>();
+	    for (Map.Entry<String, Individual> entry : graphMap.entrySet())
+	    {
+	        subGraph.put(entry.getKey(), new Individual(entry.getValue()));
+	        subGraph.get(entry.getKey()).setRelations(new Stack<WeightedRelation>());
+			Iterator<WeightedRelation> itr = entry.getValue().getRelations().iterator();
+			WeightedRelation temp;
+			while (itr.hasNext())
+			{
+				temp = itr.next();
+				subGraph.get(entry.getKey()).getRelations().push(new WeightedRelation(temp));
+				subGraph.get(entry.getKey()).getAdjacentNodes().put(new Individual(temp.getIndividual()), temp.getWeight());
+			}
+	    }
 		
 		for (Map.Entry<String, Individual> individual : subGraph.entrySet()) {
-			Map<Individual, Integer> adjNds = new HashMap<>();
 			for (WeightedRelation relation : individual.getValue().relations) {
 					if (cheveux == individual.getValue().getHairColor() && cheveux == relation.getIndividual().getHairColor())
 						relation.setWeight(0);
@@ -125,9 +138,7 @@ public class SocialGraph {
 						relation.setWeight(0);
 					if (departement == individual.getValue().getDepartment() && departement == relation.getIndividual().getDepartment())
 						relation.setWeight(0);
-					adjNds.put(relation.getIndividual(), relation.getWeight());
 			}
-			individual.getValue().setAdjacentNodes(adjNds);
 		}
 		subGraphMap = subGraph;
 	}
@@ -185,8 +196,6 @@ public class SocialGraph {
 	 
 	    while (unsettledNodes.size() != 0) {
 	        Individual currentNode = getLowestDistanceNode(unsettledNodes);
-	        if (currentNode == null)
-	        	return subGraphMap;
 	        unsettledNodes.remove(currentNode);
 	        for (Map.Entry<Individual, Integer> adjacencyPair: currentNode.getAdjacentNodes().entrySet()) {
 	            Individual adjacentNode = adjacencyPair.getKey();
@@ -197,7 +206,10 @@ public class SocialGraph {
 	            }
 	        }
 	        settledNodes.add(currentNode);
+	      
 	    }
+	    
+	    
 	    return subGraphMap;
 	}
 	

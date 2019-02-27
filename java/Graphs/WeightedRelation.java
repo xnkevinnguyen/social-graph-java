@@ -16,6 +16,13 @@ public class WeightedRelation {
 		this.individual = individual;
 		this.isSeconInstance=isSecondInstance;
 	}
+	
+	public WeightedRelation(WeightedRelation original) {
+		super();
+		this.weight = original.weight;
+		this.individual = original.individual;
+		this.isSeconInstance = original.isSeconInstance;
+	}
 
 	public int getWeight() {
 		return weight;

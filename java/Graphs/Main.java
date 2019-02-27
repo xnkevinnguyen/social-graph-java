@@ -98,10 +98,11 @@ public class Main {
 				if (c_done == true){
 					// ---- Afficher le rÃ©sultat ----
 					System.out.println("Sous-Graph des caractéristiques désirables:");
-					guessWho.enleverArcsIndesirables('R', 'B', "GP");
+					guessWho.enleverArcsIndesirables('R', 'B', "GM");
 					guessWho.afficherSubGraphMap();
-					guessWho.trouverChaineContacts("fabiola", "rita");
-					guessWho.afficherChaineContacts("rita");
+					guessWho.trouverChaineContacts("adrien", "michel");
+					//guessWho.enleverArcsIndesirables('R', 'B', "GM");
+					guessWho.afficherChaineContacts("adilard");
 				}
 				else {
 					System.out.println("(!) ---- Ã‰TAPE C MANQUANTE ---- (!)");
