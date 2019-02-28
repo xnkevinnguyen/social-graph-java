@@ -1,8 +1,11 @@
 package Graphs;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import javax.swing.filechooser.FileFilter;
 
 public class Identifier {
 	
@@ -10,8 +13,9 @@ public class Identifier {
 	public void IdentifierIndividus(SocialGraph guessWho)
 	{
 		boolean end = false;
+		String suspects[][] = {};
 		
-		// Tant que l'agent n'a pas trouver les deux personne choisie par l'adversaire
+		// Tant que l'agent n'a pas trouvé les deux personnes choisies par l'adversaire
 		while(end != true){
 			
 			
@@ -135,6 +139,31 @@ public class Identifier {
 			System.out.println("La question est incorrecte");
 			return "null";
 		}
+	}
+	
+	//Construit le tableau des suspects
+	public String[][] BuildSuspectsTable(String path) throws IOException{
+		String suspectTable[][] = {};
+		String suspect[];
+		
+		FileReader inputStream = null;
+
+        try {
+            inputStream = new FileReader(path);
+
+            int c;
+            while ((c = inputStream.read()) != -1) {
+                // Build
+            	
+            }
+	        } 
+        finally {
+        	if (inputStream != null) {
+        		inputStream.close();
+	        }
+		}
+        
+        return suspectTable;
 	}
 
 }
