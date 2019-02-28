@@ -80,12 +80,9 @@ public class Main {
 			else if(choice.equals("c")){
 				if (a_done == true){
 					// ---- Jouer Ã  Qui est-ce ? ----
-					// SÃ©lectionne deux individus au hasard
-					//Individual first_people = play.SelectARandomPeople(guessWho);
-					//Individual second_people = play.SelectARandomPeople(guessWho);
 					
 					//Lance la partie
-					//play.IdentifierIndividus(first_people, second_people);
+					play.IdentifierIndividus(guessWho);
 					
 					c_done = true;
 				}
@@ -97,7 +94,7 @@ public class Main {
 			else if (choice.equals("d")){
 				if (c_done == true){
 					// ---- Afficher le rÃ©sultat ----
-					System.out.println("Sous-Graph des caractéristiques désirables:");
+					System.out.println("Sous-Graph des caractï¿½ristiques dï¿½sirables:");
 					guessWho.enleverArcsIndesirables('B', 'M', "GI");
 					guessWho.afficherSubGraphMap();
 					guessWho.trouverChaineContacts("adrien", "adilard");
