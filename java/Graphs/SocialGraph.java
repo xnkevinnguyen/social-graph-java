@@ -8,6 +8,7 @@ public class SocialGraph {
 	private Map<String, Individual> graphMap;
 	private Map<String, Individual> subGraphMap;
 	private Individual personneSource;
+	private Individual personneDestination;
 	
 
 	/*
@@ -33,7 +34,7 @@ public class SocialGraph {
 	public void creerReseauSocial(String nomFichierIndividu, String nomFichierRelation) throws IOException {
 
 		Map<String, Individual> listIndividus = creerIndividus(nomFichierIndividu);
-		System.out.print("a");
+
 		this.graphMap = listIndividus;
 
 		this.creerRelations(nomFichierRelation);
@@ -113,23 +114,45 @@ public class SocialGraph {
 	||C4. Écrire une fonction « enleverArcsIndesirables() » où l’agent génère le sous-graphe des caractéristiques||
 	||désirables. Cette fonction prend en paramètre trois caractéristiques indésirables.						 ||
 	==============================================================================================================*/
+	public Map<String, Individual> cloneMap(){
+		
+		Map<String, Individual> subGraph = new HashMap<String, Individual>();
+	    for (Map.Entry<String, Individual> entry : graphMap.entrySet()) {
+	    	Individual ind = new Individual();
+	    	
+	    	Integer subDistance = entry.getValue().getDistance();
+	    	List<Individual> subShortestPath = new LinkedList<>();
+	    	for (Individual person : entry.getValue().getShortestPath()) {
+	    		subShortestPath.add(new Individual(person));
+	    	}
+	    	
+	    	ind.setName(entry.getValue().getName());
+	    	ind.setHairColor(entry.getValue().getHairColor());
+	    	ind.setEyesColor(entry.getValue().getEyesColor());
+	    	ind.setDepartment(entry.getValue().getDepartment());
+	    	ind.setDistance(subDistance);
+	    	ind.setShortestPath(subShortestPath);
+	    	subGraph.put(entry.getKey(), ind);
+	    }
+	    for (Map.Entry<String, Individual> entry : subGraph.entrySet()) {
+	    	String entryName = entry.getValue().getName();
+	    	WeightedRelation[] arr = graphMap.get(entryName).getRelations().toArray(new WeightedRelation[graphMap.get(entryName).getRelations().size()]);
+	    	int i = 0;
+	    	Stack<WeightedRelation> subRelations= new Stack<WeightedRelation>();
+	    	for(int j = 0 ; j<graphMap.get(entryName).getRelations().size(); j++)
+			{
+				subRelations.push(new WeightedRelation(subGraph.get(arr[i].getIndividual().getName()),new Integer(arr[i].getWeight()), arr[i].isSeconInstance));
+				i++;
+			}
+	    	entry.getValue().setRelations(subRelations);
+	    }
+		return subGraph;
+	}
+	
+	
 	public void enleverArcsIndesirables(char cheveux, char yeux, String departement)
 	{
-	    HashMap<String, Individual> subGraph = new HashMap<String, Individual>();
-	    for (Map.Entry<String, Individual> entry : graphMap.entrySet())
-	    {
-	        subGraph.put(entry.getKey(), new Individual(entry.getValue()));
-	        subGraph.get(entry.getKey()).setRelations(new Stack<WeightedRelation>());
-			Iterator<WeightedRelation> itr = entry.getValue().getRelations().iterator();
-			WeightedRelation temp;
-			while (itr.hasNext())
-			{
-				temp = itr.next();
-				subGraph.get(entry.getKey()).getRelations().push(new WeightedRelation(temp));
-				subGraph.get(entry.getKey()).getAdjacentNodes().put(new Individual(temp.getIndividual()), temp.getWeight());
-			}
-	    }
-		
+	    Map<String, Individual> subGraph = cloneMap();
 		for (Map.Entry<String, Individual> individual : subGraph.entrySet()) {
 			for (WeightedRelation relation : individual.getValue().relations) {
 					if (cheveux == individual.getValue().getHairColor() && cheveux == relation.getIndividual().getHairColor())
@@ -184,63 +207,54 @@ public class SocialGraph {
 	}
 	
 	
-	private Map<String, Individual> calculateShortestPathFromSource(Map<String, Individual> subGraphMap, String name) {
+	private Map<String, Individual> calculateShortestPathFromSource(Map<String, Individual> subGraphMap, String name)
+	{
 	    
 		Individual source = subGraphMap.get(name);
 		source.setDistance(1);
-	 
 	    Set<Individual> settledNodes = new HashSet<>();
 	    Set<Individual> unsettledNodes = new HashSet<>();
-	 
 	    unsettledNodes.add(source);
-	 
 	    while (unsettledNodes.size() != 0) {
 	        Individual currentNode = getLowestDistanceNode(unsettledNodes);
+	        if (currentNode == null)
+	        	break;
 	        unsettledNodes.remove(currentNode);
-	        for (Map.Entry<Individual, Integer> adjacencyPair: currentNode.getAdjacentNodes().entrySet()) {
-	            Individual adjacentNode = adjacencyPair.getKey();
-	            Integer edgeWeight = adjacencyPair.getValue();
+	        Iterator<WeightedRelation> itr = currentNode.getRelations().iterator();
+	        while(itr.hasNext()) {
+	        	WeightedRelation relation = itr.next();
+	        	Individual adjacentNode = relation.getIndividual();
+	        	Integer edgeWeight = relation.getWeight();
 	            if (!settledNodes.contains(adjacentNode)) {
 	                calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
-	                unsettledNodes.add(adjacentNode);
+	                	unsettledNodes.add(adjacentNode);
 	            }
 	        }
 	        settledNodes.add(currentNode);
-	      
 	    }
-	    
-	    
 	    return subGraphMap;
 	}
 	
-	public List<Individual> trouverChaineContacts(String name1, String name2)
+	public void trouverChaineContacts(String name1, String name2)
 	{
 		Map<String, Individual> subGraph = this.calculateShortestPathFromSource(subGraphMap, name1);
 		personneSource = subGraph.get(name1);
-		Individual person2 = subGraph.get(name2);
-		List<Individual> shortestPath = person2.getShortestPath();
-		return shortestPath;
+		personneDestination = subGraph.get(name2);
 	}
 	
 	
-	/*Afficher une chaîne de contact à partir de l'individu dans l'attribut personneSource jusqu'à l'individu passé en paramètre "name" */
-	public void afficherChaineContacts(String name)
+	public void afficherChaineContacts()
 	{
-		
-		Individual person = subGraphMap.get(name);
-		List<Individual> shortestPath = person.getShortestPath();
+		List<Individual> shortestPath = personneDestination.getShortestPath();
 		if (shortestPath.isEmpty()) {
-			System.out.println("Pas de chaîne possible entre " + personneSource.getName() + " et " + name);
+			System.out.println("Pas de chaîne possible entre " + personneSource.getName() + " et " + personneDestination.getName());
 		}
 		else {
 			for (int i=0; i < shortestPath.size(); i++) {
 				System.out.print(shortestPath.get(i).getName() + " --> ");	
 			}
-			System.out.print(name);
-			System.out.println();
+			System.out.println(personneDestination.getName());
 		}
-		
-			
 	}
 
 

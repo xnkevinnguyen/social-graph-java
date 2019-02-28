@@ -10,7 +10,6 @@ public class Individual {
 	Stack<WeightedRelation> relations= new Stack<WeightedRelation>();
     private List<Individual> shortestPath = new LinkedList<>();
     private Integer distance = Integer.MAX_VALUE;
-    Map<Individual, Integer> adjacentNodes = new HashMap<>();
 	
 	public Individual() {
 		super();
@@ -25,8 +24,8 @@ public class Individual {
 		this.relations = copy.relations;
 		this.shortestPath = copy.shortestPath;
 		this.distance = copy.distance;
-		this.adjacentNodes = copy.adjacentNodes;
 	}
+	
 	public Individual(String name, char hairColor, char eyesColor, String department) {
 		super();
 		this.name = name;
@@ -46,7 +45,6 @@ public class Individual {
 	
 	public void addRelation(WeightedRelation relation) {
 		this.relations.push(relation);
-		 adjacentNodes.put(relation.getIndividual(), relation.getWeight());
 	}
 	
 	public List<Individual> getShortestPath() {
@@ -63,14 +61,6 @@ public class Individual {
 	
 	public void setDistance(Integer distance) {
 		this.distance = distance;
-	}
-	
-	public Map<Individual, Integer> getAdjacentNodes() {
-		return adjacentNodes;
-	}
-	
-	public void setAdjacentNodes(Map<Individual, Integer> adjacentNodes) {
-		this.adjacentNodes = adjacentNodes;
 	}
 	
 	public char getHairColor() {
