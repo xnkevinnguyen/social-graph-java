@@ -93,7 +93,17 @@ public class Main {
 			}
 			else if (choice.equals("d")){
 				if (c_done == true){
+					
 					// ---- Afficher le rÃ©sultat ----
+						//affichage du sous-graphe des caratéristique désirables 
+					guessWho.afficherSubGraphMap(); 
+						//affichage de la meilleur chaîne 
+					guessWho.afficherChaineContacts();
+						//affichage du nombre de question posées 
+					
+						//affichage du nom des individus trouvé 
+						//affichage du nom des individu qui n'ont pas été trouvé s'il y a lieu 
+						//Les trois caractéristiques 
 					System.out.println("Sous-Graph des caractï¿½ristiques dï¿½sirables:");
 					guessWho.enleverArcsIndesirables('B', 'M', "GI");
 					guessWho.afficherSubGraphMap();
