@@ -15,9 +15,7 @@ public class Identifier {
 	public void IdentifierIndividus(SocialGraph guessWho, String pathIndividus) throws IOException
 	{
 		SocialGraph social = new SocialGraph();
-		String choice;
 		int stopIteration = 0;
-		BufferedReader conclusion = new BufferedReader(new InputStreamReader(System.in));
 		String[][] remaningQuestions = {{"B","V","N","G","M"}, {"N","R","B","M"},{"GI","GE","GP","GC","GA","GM","GB","Gind","ER"}};
 		Map<String, Individual> suspectList = buildSuspectList(social, pathIndividus);
 		
@@ -42,14 +40,9 @@ public class Identifier {
 			
 			System.out.print(" et ");
 		}
-		System.out.print(" ?\n");
-		System.out.println("----------------------------");
-		System.out.println("(a) : Oui pour les deux");
-		System.out.println("(b) : Oui pour un des deux");
-		System.out.println("(c) : Non pour les deux\n");
 		
-		choice = conclusion.readLine();
-		System.out.println("Merci d'avoir joué !\n");
+		System.out.println(" ?");
+		correction(social, pathIndividus);
 		
 	}
 	
@@ -408,5 +401,75 @@ public class Identifier {
 	public int getNumberOfQuestionsAked() 
 	{ 
 		return numberOfQuestionsAsked; 
+	}
+	
+	public void correction(SocialGraph social, String pathIndividus) throws IOException{
+		
+		String choice = "null";
+		String name_1 = "null";
+		String name_2 = "null";
+		BufferedReader conclusion = new BufferedReader(new InputStreamReader(System.in));
+		
+		while (!choice.equals("a") && !choice.equals("b") && !choice.equals("c")){
+			System.out.println("----------------------------");
+			System.out.println("(a) : Oui pour les deux");
+			System.out.println("(b) : Oui pour un des deux");
+			System.out.println("(c) : Non pour les deux\n");
+			
+			choice = conclusion.readLine();
+			
+			if (choice.equals("a")){
+				// L'agent ne s'est pas trompé
+				System.out.println("Merci d'avoir joué !\n");
+			}
+			else if (choice.equals("b"))
+			{
+				while (checkIfPersonExist(name_1, social, pathIndividus) == false){
+					System.out.println("Quels était le nom de la première personne ?\n");
+					name_1 = conclusion.readLine();
+					name_1 = name_1.toLowerCase();
+				}
+				while (checkIfPersonExist(name_2, social, pathIndividus) == false){
+					System.out.println("Quels était le nom de la deuxième personne ?\n");
+					name_2 = conclusion.readLine();
+					name_2 = name_2.toLowerCase();
+				}
+				System.out.println("Merci d'avoir joué !\n");
+				
+			}
+			else if (choice.equals("c")){
+				
+				while (checkIfPersonExist(name_1, social, pathIndividus) == false){
+					System.out.println("Quels était le nom de la première personne ?\n");
+					name_1 = conclusion.readLine();
+					name_1 = name_1.toLowerCase();
+				}
+				while (checkIfPersonExist(name_2, social, pathIndividus) == false){
+					System.out.println("Quels était le nom de la deuxième personne ?\n");
+					name_2 = conclusion.readLine();
+					name_2 = name_2.toLowerCase();
+				}
+				System.out.println("Merci d'avoir joué !\n");
+			}
+		}
+	}
+	
+	public boolean checkIfPersonExist(String name, SocialGraph social, String pathIndividus) throws IOException{
+		
+		boolean find = false;
+		Map<String, Individual> peopleList = buildSuspectList(social, pathIndividus);
+		
+		for (Map.Entry<String, Individual> entry : peopleList.entrySet()) {
+					
+			String key = entry.getKey();
+			if (key.equals(name)){
+				find = true;
+				break;
+			}
+				
+		    
+		}
+		
+		return find;
 	}
 }
