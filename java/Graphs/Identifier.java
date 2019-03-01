@@ -18,11 +18,12 @@ public class Identifier {
 		Map<String, Individual> suspectList = buildSuspectList(social, pathIndividus);
 		
 		// Tant que l'agent n'a pas trouvé les deux personnes choisies par l'adversaire
-		while(suspectList.size() > 2){
+		// Et que toutes les questions possibles n'ont pas été posées
+		while(suspectList.size() > 2 && CheckIfEndQuestions(remaningQuestions) != true){
 			askRandomQuestions(remaningQuestions);
 		}
 		
-		System.out.println("Je pense que les personne auxquels vous pensez sont :");
+		System.out.println("Je pense que les personnes auxquels vous pensez sont :");
 		System.out.println(suspectList.keySet());
 	}
 	
@@ -206,6 +207,22 @@ public class Identifier {
 	    int randomNum = rand.nextInt((max - min) + 1) + min;
 
 	    return randomNum;
+	}
+	
+	public boolean CheckIfEndQuestions(String[][] remaningQuestions){
+		
+		boolean check = true;
+		
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < remaningQuestions[i].length; j++) {
+				  if (!(remaningQuestions[i][j]).equals("X")){
+					  check = false;
+					  break;
+				  }
+				}
+			}
+		
+		return check;
 	}
 
 }
