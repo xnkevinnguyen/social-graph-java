@@ -37,7 +37,8 @@ public class Identifier {
 		while (questionParameter == "X")
 		{
 			typeOfQuestion = randInt(0,2);
-			lengthQuestion = randInt(0,remaningQuestions[typeOfQuestion].length);
+			lengthQuestion = randInt(0,remaningQuestions[typeOfQuestion].length-1);
+			
 			questionParameter = remaningQuestions[typeOfQuestion][lengthQuestion];
 		}
 		
@@ -47,7 +48,7 @@ public class Identifier {
 			remaningQuestions[typeOfQuestion][lengthQuestion] = "X";
 		}
 		else if(typeOfQuestion == 1){
-			choice = EyesColorQuestion(questionParameter.charAt(0));
+			choice = HairColorQuestion(questionParameter.charAt(0));
 			remaningQuestions[typeOfQuestion][lengthQuestion] = "X";
 		}
 		else if(typeOfQuestion == 2){
