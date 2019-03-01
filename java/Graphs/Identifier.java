@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
@@ -14,7 +13,6 @@ public class Identifier {
 	// Play the game
 	public void IdentifierIndividus(SocialGraph guessWho, String pathIndividus) throws IOException
 	{
-		String choice;
 		SocialGraph social = new SocialGraph();
 		String[][] remaningQuestions = {{"B","V","N","G","M"}, {"N","R","B","M"},{"GI","GE","GP","GC","GA","GM","GB","Gind","ER"}};
 		Map<String, Individual> suspectList = buildSuspectList(social, pathIndividus);
@@ -55,10 +53,12 @@ public class Identifier {
 		}
 		else if(typeOfQuestion == 1){
 			choice = HairColorQuestion(questionParameter.charAt(0));
+			manageChoice(choice, suspectList, typeOfQuestion, questionParameter, remaningQuestions);
 			remaningQuestions[typeOfQuestion][lengthQuestion] = "X";
 		}
 		else if(typeOfQuestion == 2){
 			choice = GenieQuestion(questionParameter);
+			manageChoice(choice, suspectList, typeOfQuestion, questionParameter, remaningQuestions);
 			remaningQuestions[typeOfQuestion][lengthQuestion] = "X";
 		}
 		else{
@@ -248,10 +248,12 @@ public class Identifier {
 	
 	public void theyBothGetCriterion(Map<String, Individual> suspectList, int typeOfCriterion, String parameter, String[][] remaningQuestions){
 
+	    Map<String, Individual> individualToRemove = new HashMap<String, Individual>();
+	    
 		for (Map.Entry<String, Individual> entry : suspectList.entrySet()) {
-		    String key = entry.getKey();
+			
+			String key = entry.getKey();
 		    Individual value = entry.getValue();
-		    Map<String, Individual> individualToRemove = new HashMap<String, Individual>();
 		    
 		    //Couleur des yeux
 		    if (typeOfCriterion == 0){
@@ -282,10 +284,27 @@ public class Identifier {
 		    	}
 		    	
 		    }
-		    
-		    // On enlève les individus détecté
-		    suspectList.remove(individualToRemove);
 		}
+		
+		// On enlève les individus détecté
+		System.out.print("Supprimé : ");
+	    System.out.println(individualToRemove.keySet());
+		System.out.println("--------------------------");
+	    
+	    // On itère sur les individus à enlever
+	    for (Map.Entry<String, Individual> entry : individualToRemove.entrySet()) {
+			
+			String key = entry.getKey();
+		    
+		    // On les enlève de la liste originale
+		    suspectList.remove(key);
+		    
+	    }
+	    
+	    System.out.print("Restant : ");
+	    System.out.println(suspectList.keySet());
+		System.out.println("--------------------------");
+	    
 	}
 	
 	public void noAskingAnymore(String[][] remaningQuestions, int index){
