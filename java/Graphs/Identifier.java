@@ -9,6 +9,7 @@ import java.util.Random;
 
 
 public class Identifier {
+	private int numberOfQuestionsAsked = 0; 
 	
 	// Play the game
 	public void IdentifierIndividus(SocialGraph guessWho, String pathIndividus) throws IOException
@@ -21,6 +22,7 @@ public class Identifier {
 		// Et que toutes les questions possibles n'ont pas été posées
 		while(suspectList.size() > 2 && CheckIfEndQuestions(remaningQuestions) != true){
 			askRandomQuestions(remaningQuestions, suspectList);
+			numberOfQuestionsAsked++; 
 		}
 		
 		System.out.println("Je pense que les personnes auxquels vous pensez sont :");
@@ -377,5 +379,10 @@ public class Identifier {
 			remaningQuestions[index][i] = "X";
 		}
 	}
-
+	
+	//Getters 
+	public int getNumberOfQuestionsAked() 
+	{ 
+		return numberOfQuestionsAsked; 
+	}
 }
