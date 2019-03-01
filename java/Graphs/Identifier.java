@@ -3,6 +3,7 @@ package Graphs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
@@ -250,13 +251,14 @@ public class Identifier {
 		for (Map.Entry<String, Individual> entry : suspectList.entrySet()) {
 		    String key = entry.getKey();
 		    Individual value = entry.getValue();
+		    Map<String, Individual> individualToRemove = new HashMap<String, Individual>();
 		    
 		    //Couleur des yeux
 		    if (typeOfCriterion == 0){
 		    	char color = value.getEyesColor();
 		    	//Si l'individu n'a pas le critère on le supprime de la liste
 		    	if (color != parameter.charAt(0)){
-		    		suspectList.remove(key);
+		    		individualToRemove.put(key, value);
 		    		noAskingAnymore(remaningQuestions, typeOfCriterion);
 		    	}
 		    }
@@ -265,7 +267,7 @@ public class Identifier {
 		    	char color = value.getHairColor();
 		    	//Si l'individu n'a pas le critère on le supprime de la liste
 		    	if (color != parameter.charAt(0)){
-		    		suspectList.remove(key);
+		    		individualToRemove.put(key, value);
 		    		noAskingAnymore(remaningQuestions, typeOfCriterion);
 		    	}
 		    	
@@ -275,11 +277,14 @@ public class Identifier {
 		    	String genius = value.getDepartment();
 		    	//Si l'individu n'a pas le critère on le supprime de la liste
 		    	if (genius != parameter){
-		    		suspectList.remove(key);
+		    		individualToRemove.put(key, value);
 		    		noAskingAnymore(remaningQuestions, typeOfCriterion);
 		    	}
 		    	
 		    }
+		    
+		    // On enlève les individus détecté
+		    suspectList.remove(individualToRemove);
 		}
 	}
 	
