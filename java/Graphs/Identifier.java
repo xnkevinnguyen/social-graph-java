@@ -15,6 +15,9 @@ public class Identifier {
 	public void IdentifierIndividus(SocialGraph guessWho, String pathIndividus) throws IOException
 	{
 		SocialGraph social = new SocialGraph();
+		String choice;
+		int stopIteration = 0;
+		BufferedReader conclusion = new BufferedReader(new InputStreamReader(System.in));
 		String[][] remaningQuestions = {{"B","V","N","G","M"}, {"N","R","B","M"},{"GI","GE","GP","GC","GA","GM","GB","Gind","ER"}};
 		Map<String, Individual> suspectList = buildSuspectList(social, pathIndividus);
 		
@@ -25,8 +28,29 @@ public class Identifier {
 			numberOfQuestionsAsked++; 
 		}
 		
-		System.out.println("Je pense que les personnes auxquels vous pensez sont :");
-		System.out.println(suspectList.keySet());
+		// Renvoi les 2 premiers éléments de la liste finale
+		System.out.print("S'agit-il de : ");
+		for (Map.Entry<String, Individual> entry : suspectList.entrySet()) {
+			
+			String key = entry.getKey();
+			
+			System.out.print(key);
+			stopIteration = stopIteration + 1;
+					
+			if (stopIteration == 2)
+				break;
+			
+			System.out.print(" et ");
+		}
+		System.out.print(" ?\n");
+		System.out.println("----------------------------");
+		System.out.println("(a) : Oui pour les deux");
+		System.out.println("(b) : Oui pour un des deux");
+		System.out.println("(c) : Non pour les deux\n");
+		
+		choice = conclusion.readLine();
+		System.out.println("Merci d'avoir joué !\n");
+		
 	}
 	
 	//Pose une question aléatoire parmis les questions restantes
