@@ -73,11 +73,12 @@ public class Identifier {
 		String choice = "null";
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		while(!choice.equals("a") && !choice.equals("b") && !choice.equals("c")){
+		while(!choice.equals("a") && !choice.equals("b") && !choice.equals("c") && !choice.equals("s")){
 			
 			System.out.println("a : Oui pour les deux individus");
 			System.out.println("b : Oui pour un seul individu");
 			System.out.println("c : Non pour les deux individus");
+			System.out.println("s : Afficher les personnes restantes");
 			
 			choice = br.readLine();
 		}
@@ -197,7 +198,7 @@ public class Identifier {
 			return getAnswer();
 		}
 		else{
-			System.out.println("La question est incorrecte");
+			//System.out.println("La question est incorrecte");
 			return "null";
 		}
 	}
@@ -240,6 +241,12 @@ public class Identifier {
 		}
 		else if(choice.equals("c")){
 			NoneGotTheCriterion(suspectList, typeOfCriterion, parameter, remaningQuestions);
+		}
+		else if(choice.equals("s")){
+			System.out.println("");
+			System.out.print("Suspect(s) restant(s) : ");
+			System.out.println(suspectList.keySet());
+			System.out.println("");
 		}
 		else{
 			//System.out.println("Entrée incorecte");
@@ -287,9 +294,9 @@ public class Identifier {
 		}
 		
 		// On enlève les individus détecté
-		System.out.print("Supprimé : ");
-	    System.out.println(individualToRemove.keySet());
-		System.out.println("--------------------------");
+		//System.out.print("Supprimé : ");
+	    //System.out.println(individualToRemove.keySet());
+		//System.out.println("--------------------------");
 	    
 	    // On itère sur les individus à enlever
 	    for (Map.Entry<String, Individual> entry : individualToRemove.entrySet()) {
@@ -301,9 +308,9 @@ public class Identifier {
 		    
 	    }
 	    
-	    System.out.print("Restant : ");
-	    System.out.println(suspectList.keySet());
-		System.out.println("--------------------------");
+	    //System.out.print("Restant : ");
+	    //System.out.println(suspectList.keySet());
+		//System.out.println("--------------------------");
 	    
 	}
 	
@@ -345,9 +352,9 @@ public class Identifier {
 		}
 		
 		// On enlève les individus détecté
-		System.out.print("Supprimé : ");
-	    System.out.println(individualToRemove.keySet());
-		System.out.println("--------------------------");
+		//System.out.print("Supprimé : ");
+	    //System.out.println(individualToRemove.keySet());
+		//System.out.println("--------------------------");
 	    
 	    // On itère sur les individus à enlever
 	    for (Map.Entry<String, Individual> entry : individualToRemove.entrySet()) {
@@ -359,9 +366,9 @@ public class Identifier {
 		    
 	    }
 	    
-	    System.out.print("Restant : ");
-	    System.out.println(suspectList.keySet());
-		System.out.println("--------------------------");
+	    //System.out.print("Restant : ");
+	    //System.out.println(suspectList.keySet());
+		//System.out.println("--------------------------");
 	    
 	}
 	
