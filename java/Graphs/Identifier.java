@@ -278,7 +278,7 @@ public class Identifier {
 		    else if(typeOfCriterion == 2){
 		    	String genius = value.getDepartment();
 		    	//Si l'individu n'a pas le critère on le supprime de la liste
-		    	if (genius != parameter){
+		    	if (!genius.equals(parameter)){
 		    		individualToRemove.put(key, value);
 		    		noAskingAnymore(remaningQuestions, typeOfCriterion);
 		    	}
