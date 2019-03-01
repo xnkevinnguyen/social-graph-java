@@ -49,7 +49,7 @@ public class SocialGraph {
 		Map<String, Individual> listIndividuals = new HashMap<String, Individual>();
 
 		while ((line = lecture.readLine()) != null) {
-			System.out.println(line);
+			//System.out.println(line);
 			String[] inputs = line.split(" ");
 
 			Individual newIndividual = new Individual(inputs[0].toLowerCase(), inputs[1].charAt(0), inputs[2].charAt(0), inputs[3]);
@@ -64,7 +64,7 @@ public class SocialGraph {
 		String line;
 
 		while ((line = lecture.readLine()) != null) {
-			System.out.println(line);
+			//System.out.println(line);
 			String[] inputs = line.split(" ");
 			this.rajouterRelationDeuxDirection(inputs[0], inputs[2], Integer.parseInt(inputs[1]));
 	
@@ -111,8 +111,8 @@ public class SocialGraph {
 	
 
 	/*==============================================================================================================
-	||C4. Écrire une fonction « enleverArcsIndesirables() » où l’agent génère le sous-graphe des caractéristiques||
-	||désirables. Cette fonction prend en paramètre trois caractéristiques indésirables.						 ||
+	||C4. ï¿½crire une fonction ï¿½ enleverArcsIndesirables() ï¿½ oï¿½ lï¿½agent gï¿½nï¿½re le sous-graphe des caractï¿½ristiques||
+	||dï¿½sirables. Cette fonction prend en paramï¿½tre trois caractï¿½ristiques indï¿½sirables.						 ||
 	==============================================================================================================*/
 	public Map<String, Individual> cloneMap(){
 		
@@ -178,9 +178,9 @@ public class SocialGraph {
 	}
 	
 	/*=======================================================================================================
-	|| C5. Écrire une fonction « trouverChaineContacts() » où l’agent trouve la meilleure chaîne de contacts||
-	||entre deux individus à partir du sous-graphe des caractéristiques désirables. Cette fonction prend    ||
-	||en paramètre deux noms d’individus.																	||
+	|| C5. ï¿½crire une fonction ï¿½ trouverChaineContacts() ï¿½ oï¿½ lï¿½agent trouve la meilleure chaï¿½ne de contacts||
+	||entre deux individus ï¿½ partir du sous-graphe des caractï¿½ristiques dï¿½sirables. Cette fonction prend    ||
+	||en paramï¿½tre deux noms dï¿½individus.																	||
 	=========================================================================================================*/
 	
 	private static Individual getLowestDistanceNode(Set < Individual > unsettledNodes) {
@@ -247,7 +247,7 @@ public class SocialGraph {
 	{
 		List<Individual> shortestPath = personneDestination.getShortestPath();
 		if (shortestPath.isEmpty()) {
-			System.out.println("Pas de chaîne possible entre " + personneSource.getName() + " et " + personneDestination.getName());
+			System.out.println("Pas de chaï¿½ne possible entre " + personneSource.getName() + " et " + personneDestination.getName());
 		}
 		else {
 			for (int i=0; i < shortestPath.size(); i++) {

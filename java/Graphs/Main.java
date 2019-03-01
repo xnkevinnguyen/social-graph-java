@@ -23,8 +23,9 @@ public class Main {
 		 */
 		
 		// ----- Paths -----
-		String path_individus = "";
-		String path_relations = "";
+		String path_enter;
+		String path_individus = "/Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Individus.txt";
+		String path_relations = "/Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Relations.txt";
 		
 		// ----- Paramètres Interfaces -----
 		String choice = "no choice";
@@ -59,12 +60,21 @@ public class Main {
 				// ---- Créer le réseau social ----
 				System.out.println("Entrez le chemin d'accès à : Individus.txt");
 				System.out.println("Exemple : /Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Individus.txt\n");
-				path_individus = br.readLine();
+				path_enter = br.readLine();
+				
+				// Conserve les paramètres par défaut (plus rapide lors du codage)
+				if (!path_enter.equals("")){
+					path_individus = path_enter;}
+				
 				System.out.println("Entrez le chemin d'accès à : Relations.txt");
 				System.out.println("Exemple : /Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Relations.txt\n");
-				path_relations = br.readLine();
+				path_enter = br.readLine();
+				
+				if (!path_enter.equals("")){
+					path_relations = path_enter;}
 				
 				guessWho.creerReseauSocial(path_individus, path_relations);
+				System.out.println("Le graph a été créé avec succès");
 				a_done = true;
 			}
 			else if (choice.equals("b")){
@@ -82,7 +92,7 @@ public class Main {
 					// ---- Jouer à Qui est-ce ? ----
 					
 					//Lance la partie
-					play.IdentifierIndividus(guessWho);
+					play.IdentifierIndividus(guessWho, path_individus);
 					
 					c_done = true;
 				}
