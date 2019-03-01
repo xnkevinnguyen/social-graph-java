@@ -3,6 +3,7 @@ package Graphs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
@@ -20,7 +21,7 @@ public class Identifier {
 		// Tant que l'agent n'a pas trouvé les deux personnes choisies par l'adversaire
 		// Et que toutes les questions possibles n'ont pas été posées
 		while(suspectList.size() > 2 && CheckIfEndQuestions(remaningQuestions) != true){
-			askRandomQuestions(remaningQuestions);
+			askRandomQuestions(remaningQuestions, suspectList);
 		}
 		
 		System.out.println("Je pense que les personnes auxquels vous pensez sont :");
@@ -28,7 +29,7 @@ public class Identifier {
 	}
 	
 	//Pose une question aléatoire parmis les questions restantes
-	public void askRandomQuestions(String[][] remaningQuestions) throws IOException{
+	public void askRandomQuestions(String[][] remaningQuestions, Map<String, Individual> suspectList) throws IOException{
 		int typeOfQuestion = randInt(0,2);
 		int lengthQuestion = randInt(0,remaningQuestions[typeOfQuestion].length-1);
 		String questionParameter = remaningQuestions[typeOfQuestion][lengthQuestion];
@@ -45,8 +46,11 @@ public class Identifier {
 		
 		if(typeOfQuestion == 0){
 			choice = EyesColorQuestion(questionParameter.charAt(0));
+			manageChoice(choice, suspectList, typeOfQuestion, questionParameter, remaningQuestions);
 			// Les paramètres des questions posées sont remplacées par des X
 			remaningQuestions[typeOfQuestion][lengthQuestion] = "X";
+			
+			//On enlèves les individus qui ne correspondent pas aux critères
 		}
 		else if(typeOfQuestion == 1){
 			choice = HairColorQuestion(questionParameter.charAt(0));
@@ -223,6 +227,66 @@ public class Identifier {
 			}
 		
 		return check;
+	}
+	
+	public void manageChoice(String choice, Map<String, Individual> suspectList, int typeOfCriterion, String parameter, String[][] remaningQuestions){
+		
+		if(choice.equals("a")){
+			theyBothGetCriterion(suspectList, typeOfCriterion, parameter, remaningQuestions);
+		}
+		else if(choice.equals("b")){
+			// On ne peut rien déduire
+		}
+		else if(choice.equals("c")){
+			
+		}
+		else{
+			System.out.println("Entrée incorecte");
+		}
+	}
+	
+	public void theyBothGetCriterion(Map<String, Individual> suspectList, int typeOfCriterion, String parameter, String[][] remaningQuestions){
+
+		for (Map.Entry<String, Individual> entry : suspectList.entrySet()) {
+		    String key = entry.getKey();
+		    Individual value = entry.getValue();
+		    
+		    //Couleur des yeux
+		    if (typeOfCriterion == 0){
+		    	char color = value.getEyesColor();
+		    	//Si l'individu n'a pas le critère on le supprime de la liste
+		    	if (color != parameter.charAt(0)){
+		    		suspectList.remove(key);
+		    		noAskingAnymore(remaningQuestions, typeOfCriterion);
+		    	}
+		    }
+		    //Couleur des cheveux
+		    else if(typeOfCriterion == 1){
+		    	char color = value.getHairColor();
+		    	//Si l'individu n'a pas le critère on le supprime de la liste
+		    	if (color != parameter.charAt(0)){
+		    		suspectList.remove(key);
+		    		noAskingAnymore(remaningQuestions, typeOfCriterion);
+		    	}
+		    	
+		    }
+		    //Génie
+		    else if(typeOfCriterion == 2){
+		    	String genius = value.getDepartment();
+		    	//Si l'individu n'a pas le critère on le supprime de la liste
+		    	if (genius != parameter){
+		    		suspectList.remove(key);
+		    		noAskingAnymore(remaningQuestions, typeOfCriterion);
+		    	}
+		    	
+		    }
+		}
+	}
+	
+	public void noAskingAnymore(String[][] remaningQuestions, int index){
+		for (int i = 0; i < remaningQuestions[index].length; i++) {
+			remaningQuestions[index][i] = "X";
+		}
 	}
 
 }
