@@ -73,11 +73,12 @@ public class Identifier {
 		String choice = "null";
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		while(!choice.equals("a") && !choice.equals("b") && !choice.equals("c")){
+		while(!choice.equals("a") && !choice.equals("b") && !choice.equals("c") && !choice.equals("s")){
 			
 			System.out.println("a : Oui pour les deux individus");
 			System.out.println("b : Oui pour un seul individu");
 			System.out.println("c : Non pour les deux individus");
+			System.out.println("s : Afficher les personnes restantes");
 			
 			choice = br.readLine();
 		}
@@ -197,7 +198,7 @@ public class Identifier {
 			return getAnswer();
 		}
 		else{
-			System.out.println("La question est incorrecte");
+			//System.out.println("La question est incorrecte");
 			return "null";
 		}
 	}
@@ -239,10 +240,16 @@ public class Identifier {
 			// On ne peut rien déduire
 		}
 		else if(choice.equals("c")){
-			
+			NoneGotTheCriterion(suspectList, typeOfCriterion, parameter, remaningQuestions);
+		}
+		else if(choice.equals("s")){
+			System.out.println("");
+			System.out.print("Suspect(s) restant(s) : ");
+			System.out.println(suspectList.keySet());
+			System.out.println("");
 		}
 		else{
-			System.out.println("Entrée incorecte");
+			//System.out.println("Entrée incorecte");
 		}
 	}
 	
@@ -287,9 +294,9 @@ public class Identifier {
 		}
 		
 		// On enlève les individus détecté
-		System.out.print("Supprimé : ");
-	    System.out.println(individualToRemove.keySet());
-		System.out.println("--------------------------");
+		//System.out.print("Supprimé : ");
+	    //System.out.println(individualToRemove.keySet());
+		//System.out.println("--------------------------");
 	    
 	    // On itère sur les individus à enlever
 	    for (Map.Entry<String, Individual> entry : individualToRemove.entrySet()) {
@@ -301,9 +308,67 @@ public class Identifier {
 		    
 	    }
 	    
-	    System.out.print("Restant : ");
-	    System.out.println(suspectList.keySet());
-		System.out.println("--------------------------");
+	    //System.out.print("Restant : ");
+	    //System.out.println(suspectList.keySet());
+		//System.out.println("--------------------------");
+	    
+	}
+	
+	public void NoneGotTheCriterion(Map<String, Individual> suspectList, int typeOfCriterion, String parameter, String[][] remaningQuestions){
+
+	    Map<String, Individual> individualToRemove = new HashMap<String, Individual>();
+	    
+		for (Map.Entry<String, Individual> entry : suspectList.entrySet()) {
+			
+			String key = entry.getKey();
+		    Individual value = entry.getValue();
+		    
+		    //Couleur des yeux
+		    if (typeOfCriterion == 0){
+		    	char color = value.getEyesColor();
+		    	//Si l'individu a le critère on le supprime de la liste
+		    	if (color == parameter.charAt(0)){
+		    		individualToRemove.put(key, value);
+		    	}
+		    }
+		    //Couleur des cheveux
+		    else if(typeOfCriterion == 1){
+		    	char color = value.getHairColor();
+		    	//Si l'individu a le critère on le supprime de la liste
+		    	if (color == parameter.charAt(0)){
+		    		individualToRemove.put(key, value);
+		    	}
+		    	
+		    }
+		    //Génie
+		    else if(typeOfCriterion == 2){
+		    	String genius = value.getDepartment();
+		    	//Si l'individu a  le critère on le supprime de la liste
+		    	if (genius.equals(parameter)){
+		    		individualToRemove.put(key, value);
+		    	}
+		    	
+		    }
+		}
+		
+		// On enlève les individus détecté
+		//System.out.print("Supprimé : ");
+	    //System.out.println(individualToRemove.keySet());
+		//System.out.println("--------------------------");
+	    
+	    // On itère sur les individus à enlever
+	    for (Map.Entry<String, Individual> entry : individualToRemove.entrySet()) {
+			
+			String key = entry.getKey();
+		    
+		    // On les enlève de la liste originale
+		    suspectList.remove(key);
+		    
+	    }
+	    
+	    //System.out.print("Restant : ");
+	    //System.out.println(suspectList.keySet());
+		//System.out.println("--------------------------");
 	    
 	}
 	
