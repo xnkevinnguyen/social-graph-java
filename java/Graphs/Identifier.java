@@ -10,6 +10,8 @@ import java.util.Random;
 
 public class Identifier {
 	private int numberOfQuestionsAsked = 0; 
+	private String[] individuTrouve = {"null", "null"}; 
+	private String[] individuCorrige = {"null", "null"}; 
 	
 	// Play the game
 	public void IdentifierIndividus(SocialGraph guessWho, String pathIndividus) throws IOException
@@ -31,6 +33,7 @@ public class Identifier {
 		for (Map.Entry<String, Individual> entry : suspectList.entrySet()) {
 			
 			String key = entry.getKey();
+			individuTrouve[stopIteration] = entry.getKey(); 
 			
 			System.out.print(key);
 			stopIteration = stopIteration + 1;
@@ -398,9 +401,17 @@ public class Identifier {
 	}
 	
 	//Getters 
-	public int getNumberOfQuestionsAked() 
-	{ 
+	
+	public int getNumberOfQuestionsAsked(){ 
 		return numberOfQuestionsAsked; 
+	}
+	
+	public String[] getIndividuTrouve() {
+		return individuTrouve; 
+	}
+	
+	public String[] getIndividuCorrige(){ 
+		return individuCorrige; 
 	}
 	
 	public void correction(SocialGraph social, String pathIndividus) throws IOException{
@@ -451,6 +462,9 @@ public class Identifier {
 				}
 				System.out.println("Merci d'avoir joué !\n");
 			}
+			
+			individuCorrige[0] = name_1; 
+			individuCorrige[1] = name_2; 
 		}
 	}
 	
