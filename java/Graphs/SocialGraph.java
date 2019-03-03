@@ -9,6 +9,7 @@ public class SocialGraph {
 	private Map<String, Individual> subGraphMap;
 	private Individual personneSource;
 	private Individual personneDestination;
+	private String[] arcsIndesirables = {"null", "null", "null"}; 
 	
 
 	/*
@@ -20,7 +21,8 @@ public class SocialGraph {
 		super();
 	}
 	
-
+	//getters 
+	 
 	public Map<String, Individual> getGraphMap() {
 		return graphMap;
 	}
@@ -29,7 +31,10 @@ public class SocialGraph {
 	public Map<String, Individual> getSubGraphMap() {
 		return subGraphMap;
 	}
-
+	
+	public String[] getArcsIndesirables(){
+		return arcsIndesirables; 
+	}
 
 	public void creerReseauSocial(String nomFichierIndividu, String nomFichierRelation) throws IOException {
 
@@ -152,7 +157,11 @@ public class SocialGraph {
 	
 	public void enleverArcsIndesirables(char cheveux, char yeux, String departement)
 	{
-	    Map<String, Individual> subGraph = cloneMap();
+	    arcsIndesirables[0] = String.valueOf(cheveux); 
+	    arcsIndesirables[1] = String.valueOf(yeux); 
+	    arcsIndesirables[2] = String.valueOf(departement); 
+	    
+		Map<String, Individual> subGraph = cloneMap();
 		for (Map.Entry<String, Individual> individual : subGraph.entrySet()) {
 			for (WeightedRelation relation : individual.getValue().relations) {
 					if (cheveux == individual.getValue().getHairColor() && cheveux == relation.getIndividual().getHairColor())

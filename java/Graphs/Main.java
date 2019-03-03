@@ -110,15 +110,23 @@ public class Main {
 						//affichage de la meilleur chaîne 
 					guessWho.afficherChaineContacts();
 						//affichage du nombre de question posées 
-					
-						//affichage du nom des individus trouvé 
-						//affichage du nom des individu qui n'ont pas été trouvé s'il y a lieu 
+					System.out.println("Nombre de questions posées : " + play.getNumberOfQuestionsAsked()); 
+						//affichage du nom des individus trouvés 
+					String[] individus = play.getIndividuTrouve(); 
+					System.out.println("Individus mystères trouvés : " + individus[0] + ", " + individus[1]);
+						//affichage du nom des individus qui n'ont pas été trouvés s'il y a lieu 
+					if(play.getIndividuCorrige()[0] != "null" && play.getIndividuCorrige()[1] != "null"){
+							System.out.println("Individus mystères non trouvé : " + play.getIndividuCorrige()[0] + ", " + play.getIndividuCorrige()[1]);
+					}
 						//Les trois caractéristiques 
-					System.out.println("Sous-Graph des caractï¿½ristiques dï¿½sirables:");
+					String[] caractéristiquesIndésirables = {guessWho.getArcsIndesirables()[0], guessWho.getArcsIndesirables()[1], guessWho.getArcsIndesirables()[2]};  
+					System.out.println("Les trois caractéristiques indésirables sont : " + caractéristiquesIndésirables[0] + ", " + caractéristiquesIndésirables[1] + " et " + caractéristiquesIndésirables[2]); 
+					
+					/*System.out.println("Sous-Graph des caractï¿½ristiques dï¿½sirables:");
 					guessWho.enleverArcsIndesirables('B', 'M', "GI");
 					guessWho.afficherSubGraphMap();
 					guessWho.trouverChaineContacts("adrien", "adilard");
-					guessWho.afficherChaineContacts();
+					guessWho.afficherChaineContacts();*/
 					
 				}
 				else {
