@@ -9,7 +9,7 @@ public class Individual {
 	private String department;
 	Stack<WeightedRelation> relations= new Stack<WeightedRelation>();
     private List<Individual> shortestPath = new LinkedList<>();
-    private Integer distance = Integer.MAX_VALUE;
+    private Integer poidsTotal = Integer.MAX_VALUE;
 	
 	public Individual() {
 		super();
@@ -23,7 +23,7 @@ public class Individual {
 		this.department = copy.department;
 		this.relations = copy.relations;
 		this.shortestPath = copy.shortestPath;
-		this.distance = copy.distance;
+		this.poidsTotal = copy.poidsTotal;
 	}
 	
 	public Individual(String name, char hairColor, char eyesColor, String department) {
@@ -55,12 +55,12 @@ public class Individual {
 		this.shortestPath = shortestPath;
 	}
 	
-	public Integer getDistance() {
-		return distance;
+	public Integer getPoidsTotal() {
+		return poidsTotal;
 	}
 	
-	public void setDistance(Integer distance) {
-		this.distance = distance;
+	public void setPoidsTotal(Integer poidsTotal) {
+		this.poidsTotal = poidsTotal;
 	}
 	
 	public char getHairColor() {
