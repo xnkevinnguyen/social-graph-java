@@ -35,7 +35,15 @@ public class SocialGraph {
 	public String[] getArcsIndesirables(){
 		return arcsIndesirables; 
 	}
+	
+	//setter 
 
+	public void setArcsIndesirables(String[] arcs){
+		for(int i = 0; i < 2; i++){
+			arcsIndesirables[i] = arcs[i]; 
+		}
+	}
+	
 	public void creerReseauSocial(String nomFichierIndividu, String nomFichierRelation) throws IOException {
 
 		Map<String, Individual> listIndividus = creerIndividus(nomFichierIndividu);

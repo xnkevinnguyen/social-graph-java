@@ -84,7 +84,7 @@ public class Main {
 					guessWho.afficherReseauSocial();
 				}
 				else {
-					System.out.println("(!) ---- ÉTAPE A MANQUANTE ---- (!)");
+					System.out.println("(!) ---- ETAPE A MANQUANTE ---- (!)");
 				}
 			}
 			else if(choice.equals("c")){
@@ -94,10 +94,91 @@ public class Main {
 					//Lance la partie
 					play.IdentifierIndividus(guessWho, path_individus);
 					
+					//Genere le subgraph avec les arcs indesirables 
+					System.out.println("Choisissez trois caracteristique indesirables. "); 
+					
+					char cheveux = 'r';
+					
+					while(cheveux == 'r'){
+						System.out.println("Couleur de cheveux : "); 
+						System.out.println("(a) : Noir"); 
+						System.out.println("(b) : Roux"); 
+						System.out.println("(c) : Blond"); 
+						System.out.println("(d) : Marron");  
+						
+						switch(br.readLine().toLowerCase()){
+							case "a" : cheveux = 'N'; break; 
+							case "b" : cheveux = 'R'; break; 
+							case "c" : cheveux = 'B'; break; 
+							case "d" : cheveux = 'M'; break; 
+							default : cheveux = 'r'; break; 
+						}
+					}
+					
+					char yeux = 'r'; 
+					
+					while(yeux == 'r'){ 
+						System.out.println("Couleur de yeux : "); 
+						System.out.println("(a) : Bleu"); 
+						System.out.println("(b) : Vert"); 
+						System.out.println("(c) : Noir"); 
+						System.out.println("(d) : Gris"); 
+						System.out.println("(e) : Marron"); 
+						
+						switch(br.readLine().toLowerCase()){ 
+						case "a" : yeux = 'B'; break; 
+						case "b" : yeux = 'V'; break; 
+						case "c" : yeux = 'N'; break; 
+						case "d" : yeux = 'G'; break; 
+						case "e" : yeux = 'M'; break; 
+						default : yeux = 'r'; break; 
+						}
+					}
+					
+					String departement = "r"; 
+					
+					while(departement == "r"){ 
+						System.out.println("Departement de genie : "); 
+						System.out.println("(a) : Genie informatique"); 
+						System.out.println("(b) : Genie electrique "); 
+						System.out.println("(c) : Genie physique"); 
+						System.out.println("(d) : Genie chimique"); 
+						System.out.println("(e) : Genie aerospatial"); 
+						System.out.println("(f) : Genie mecanique"); 
+						System.out.println("(g) : Genie biomedical"); 
+						System.out.println("(h) : Genie industriel"); 
+						System.out.println("(i) : Genie energetique"); 
+						
+						switch(br.readLine().toLowerCase()){ 
+						case "a" : departement = "GI"; break; 
+						case "b" : departement = "GE"; break; 
+						case "c" : departement = "GP"; break; 
+						case "d" : departement = "GC"; break; 
+						case "e" : departement = "GA"; break; 
+						case "f" : departement = "GM"; break; 
+						case "g" : departement = "GB"; break; 
+						case "h" : departement = "GInd"; break; 
+						case "i" : departement = "ER"; break; 
+						default : yeux = 'r'; break; 
+						}
+					}
+					
+					System.out.println("Vous avez choisi les caracterisques indesirables " + String.valueOf(cheveux) + ", " + String.valueOf(yeux) + " et " + departement); 
+					
+					guessWho.enleverArcsIndesirables(cheveux, yeux, departement); 
+
+					if(play.getIndividuCorrige()[0] != "null" && play.getIndividuCorrige()[1] != "null"){
+						guessWho.trouverChaineContacts(play.getIndividuCorrige()[0], play.getIndividuCorrige()[1]);
+					}
+					else {
+						guessWho.trouverChaineContacts(play.getIndividuTrouve()[0], play.getIndividuTrouve()[1]);
+					}
+
+					
 					c_done = true;
 				}
 				else {
-					System.out.println("(!) ---- ÉTAPE A MANQUANTE ---- (!)");
+					System.out.println("(!) ---- ETAPE A MANQUANTE ---- (!)");
 				}
 				
 			}
