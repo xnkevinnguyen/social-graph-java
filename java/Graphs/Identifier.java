@@ -171,51 +171,51 @@ public class Identifier {
 		}
 	}
 	
-	// Pose la question du génie pour l'identifiant passé en paramètre
+	// Pose la question du genie pour l'identifiant passé en paramètre
 	public String GenieQuestion(String genie) throws IOException{
 		
 		if (genie.equals("GI")){
-			System.out.println("Les individus font-ils partis du génie informatique ?");
+			System.out.println("Les individus font-ils partis du genie informatique ?");
 			System.out.println("-----------------------------------------------------------");
 			return getAnswer();
 		}
 		else if (genie.equals("GE")){
-			System.out.println("Les individus font-ils partis du génie électrique ?");
+			System.out.println("Les individus font-ils partis du genie electrique ?");
 			System.out.println("-----------------------------------------------------------");
 			return getAnswer();
 		}
 		else if (genie.equals("GP")){
-			System.out.println("Les individus font-ils partis du génie physique ?");
+			System.out.println("Les individus font-ils partis du genie physique ?");
 			System.out.println("-----------------------------------------------------------");
 			return getAnswer();
 		}
 		else if (genie.equals("GC")){
-			System.out.println("Les individus font-ils partis du génie chimique ?");
+			System.out.println("Les individus font-ils partis du genie chimique ?");
 			System.out.println("-----------------------------------------------------------");
 			return getAnswer();
 		}
 		else if (genie.equals("GA")){
-			System.out.println("Les individus font-ils partis du génie aérospatial ?");
+			System.out.println("Les individus font-ils partis du genie aerospatial ?");
 			System.out.println("-----------------------------------------------------------");
 			return getAnswer();
 		}
 		else if (genie.equals("GM")){
-			System.out.println("Les individus font-ils partis du génie mécanique ?");
+			System.out.println("Les individus font-ils partis du genie mecanique ?");
 			System.out.println("-----------------------------------------------------------");
 			return getAnswer();
 		}
 		else if (genie.equals("GB")){
-			System.out.println("Les individus font-ils partis du génie biomédical ?");
+			System.out.println("Les individus font-ils partis du genie biomedical ?");
 			System.out.println("-----------------------------------------------------------");
 			return getAnswer();
 		}
 		else if (genie.equals("GInd")){
-			System.out.println("Les individus font-ils partis du génie industriel ?");
+			System.out.println("Les individus font-ils partis du genie industriel ?");
 			System.out.println("-----------------------------------------------------------");
 			return getAnswer();
 		}
 		else if (genie.equals("ER")){
-			System.out.println("Les individus font-ils partis du génie énergétique ?");
+			System.out.println("Les individus font-ils partis du genie energetique ?");
 			System.out.println("-----------------------------------------------------------");
 			return getAnswer();
 		}
@@ -303,7 +303,7 @@ public class Identifier {
 		    	}
 		    	
 		    }
-		    //Génie
+		    //genie
 		    else if(typeOfCriterion == 2){
 		    	String genius = value.getDepartment();
 		    	//Si l'individu n'a pas le critère on le supprime de la liste
@@ -362,7 +362,7 @@ public class Identifier {
 		    	}
 		    	
 		    }
-		    //Génie
+		    //genie
 		    else if(typeOfCriterion == 2){
 		    	String genius = value.getDepartment();
 		    	//Si l'individu a  le critère on le supprime de la liste
