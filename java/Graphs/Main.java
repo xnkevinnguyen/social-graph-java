@@ -24,8 +24,8 @@ public class Main {
 		
 		// ----- Paths -----
 		String path_enter;
-		String path_individus = "/Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Individus.txt";
-		String path_relations = "/Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Relations.txt";
+		String path_individus = "/Users/kevin/Documents/Repositories/social-graph-java/ressources/Individus.txt";
+		String path_relations = "/Users/kevin/Documents/Repositories/social-graph-java/ressources/Relations.txt";
 		
 		// ----- ParamÃ¨tres Interfaces -----
 		String choice = "no choice";
@@ -186,22 +186,22 @@ public class Main {
 				if (c_done == true){
 					
 					// ---- Afficher le rÃ©sultat ----
-						//affichage du sous-graphe des caratéristique désirables 
+						//affichage du sous-graphe des caratï¿½ristique dï¿½sirables 
 					guessWho.afficherSubGraphMap(); 
-						//affichage de la meilleur chaîne 
+						//affichage de la meilleur chaï¿½ne 
 					guessWho.afficherChaineContacts();
-						//affichage du nombre de question posées 
-					System.out.println("Nombre de questions posées : " + play.getNumberOfQuestionsAsked()); 
-						//affichage du nom des individus trouvés 
+						//affichage du nombre de question posï¿½es 
+					System.out.println("Nombre de questions posï¿½es : " + play.getNumberOfQuestionsAsked()); 
+						//affichage du nom des individus trouvï¿½s 
 					String[] individus = play.getIndividuTrouve(); 
-					System.out.println("Individus mystères trouvés : " + individus[0] + ", " + individus[1]);
-						//affichage du nom des individus qui n'ont pas été trouvés s'il y a lieu 
+					System.out.println("Individus mystï¿½res trouvï¿½s : " + individus[0] + ", " + individus[1]);
+						//affichage du nom des individus qui n'ont pas ï¿½tï¿½ trouvï¿½s s'il y a lieu 
 					if(play.getIndividuCorrige()[0] != "null" && play.getIndividuCorrige()[1] != "null"){
-							System.out.println("Individus mystères non trouvé : " + play.getIndividuCorrige()[0] + ", " + play.getIndividuCorrige()[1]);
+							System.out.println("Individus mystï¿½res non trouvï¿½ : " + play.getIndividuCorrige()[0] + ", " + play.getIndividuCorrige()[1]);
 					}
-						//Les trois caractéristiques 
-					String[] caractéristiquesIndésirables = {guessWho.getArcsIndesirables()[0], guessWho.getArcsIndesirables()[1], guessWho.getArcsIndesirables()[2]};  
-					System.out.println("Les trois caractéristiques indésirables sont : " + caractéristiquesIndésirables[0] + ", " + caractéristiquesIndésirables[1] + " et " + caractéristiquesIndésirables[2]); 
+						//Les trois caractï¿½ristiques 
+					String[] caracteristiquesIndesirables = {guessWho.getArcsIndesirables()[0], guessWho.getArcsIndesirables()[1], guessWho.getArcsIndesirables()[2]};  
+					System.out.println("Les trois caractï¿½ristiques indï¿½sirables sont : " + caracteristiquesIndesirables[0] + ", " + caracteristiquesIndesirables[1] + " et " + caracteristiquesIndesirables[2]); 
 					
 					/*System.out.println("Sous-Graph des caractï¿½ristiques dï¿½sirables:");
 					guessWho.enleverArcsIndesirables('B', 'M', "GI");
