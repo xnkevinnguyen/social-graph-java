@@ -44,29 +44,29 @@ public class Main {
 			System.out.println("\n================================");
 			System.out.println("|| --------- Welcome -------- ||");
 			System.out.println("================================");
-			System.out.println("(a) : Créer le réseau social");
-			System.out.println("(b) : Afficher le réseau social");
-			System.out.println("(c) : Jouer à Qui est-ce ?");
-			System.out.println("(d) : Afficher le résultat");
+			System.out.println("(a) : Creer le reseau social");
+			System.out.println("(b) : Afficher le reseau social");
+			System.out.println("(c) : Jouer a Qui est-ce ?");
+			System.out.println("(d) : Afficher le resultat");
 			System.out.println("(e) : Quitter");
 			System.out.println("\n");
 			System.out.print("Votre choix ?		");
 			
 			choice = br.readLine();
 			
-			// -- Switch (la réelle méthode switch ne fonctionne pas avec des String pour les versions < Java7)
+			// -- Switch (la réelle methode switch ne fonctionne pas avec des String pour les versions < Java7)
 			
 			if (choice.equals("a")){
-				// ---- Créer le réseau social ----
-				System.out.println("Entrez le chemin d'accès à : Individus.txt");
+				// ---- Créer le reseau social ----
+				System.out.println("Entrez le chemin d'acces a� : Individus.txt");
 				System.out.println("Exemple : /Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Individus.txt\n");
 				path_enter = br.readLine();
 				
-				// Conserve les paramètres par défaut (plus rapide lors du codage)
+				// Conserve les parametres par defaut (plus rapide lors du codage)
 				if (!path_enter.equals("")){
 					path_individus = path_enter;}
 				
-				System.out.println("Entrez le chemin d'accès à : Relations.txt");
+				System.out.println("Entrez le chemin d'acces a : Relations.txt");
 				System.out.println("Exemple : /Users/noefaure/Desktop/Homeworks/social-graph-java/ressources/Relations.txt\n");
 				path_enter = br.readLine();
 				
@@ -74,13 +74,13 @@ public class Main {
 					path_relations = path_enter;}
 				
 				guessWho.creerReseauSocial(path_individus, path_relations);
-				System.out.println("Le graph a été créé avec succès");
+				System.out.println("Le graph a ete cree avec succes");
 				a_done = true;
 			}
 			else if (choice.equals("b")){
 				
 				if (a_done == true){
-					// ---- Afficher le réseau social ----
+					// ---- Afficher le reseau social ----
 					guessWho.afficherReseauSocial();
 				}
 				else {
@@ -89,7 +89,7 @@ public class Main {
 			}
 			else if(choice.equals("c")){
 				if (a_done == true){
-					// ---- Jouer à Qui est-ce ? ----
+					// ---- Jouer a Qui est-ce ? ----
 					
 					//Lance la partie
 					play.IdentifierIndividus(guessWho, path_individus);
