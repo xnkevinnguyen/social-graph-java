@@ -184,34 +184,10 @@ public class Main {
 			}
 			else if (choice.equals("d")){
 				if (c_done == true){
-					
-					// ---- Afficher le résultat ----
-						//affichage du sous-graphe des carat�ristique d�sirables 
-					guessWho.afficherSubGraphMap(); 
-						//affichage de la meilleur cha�ne 
-					guessWho.afficherChaineContacts();
-						//affichage du nombre de question pos�es 
-					System.out.println("Nombre de questions pos�es : " + play.getNumberOfQuestionsAsked()); 
-						//affichage du nom des individus trouv�s 
-					String[] individus = play.getIndividuTrouve(); 
-					System.out.println("Individus myst�res trouv�s : " + individus[0] + ", " + individus[1]);
-						//affichage du nom des individus qui n'ont pas �t� trouv�s s'il y a lieu 
-					if(play.getIndividuCorrige()[0] != "null" && play.getIndividuCorrige()[1] != "null"){
-							System.out.println("Individus myst�res non trouv� : " + play.getIndividuCorrige()[0] + ", " + play.getIndividuCorrige()[1]);
-					}
-						//Les trois caract�ristiques 
-					String[] caracteristiquesIndesirables = {guessWho.getArcsIndesirables()[0], guessWho.getArcsIndesirables()[1], guessWho.getArcsIndesirables()[2]};  
-					System.out.println("Les trois caract�ristiques ind�sirables sont : " + caracteristiquesIndesirables[0] + ", " + caracteristiquesIndesirables[1] + " et " + caracteristiquesIndesirables[2]); 
-					
-					/*System.out.println("Sous-Graph des caract�ristiques d�sirables:");
-					guessWho.enleverArcsIndesirables('B', 'M', "GI");
-					guessWho.afficherSubGraphMap();
-					guessWho.trouverChaineContacts("adrien", "adilard");
-					guessWho.afficherChaineContacts();*/
-					
+					afficherResultat(guessWho, play); 
 				}
 				else {
-					System.out.println("(!) ---- ÉTAPE C MANQUANTE ---- (!)");
+					System.out.println("(!) ---- ETAPE C MANQUANTE ---- (!)");
 				}
 			}
 			
@@ -230,6 +206,39 @@ public class Main {
 				System.out.println("(!) ---- INDEX INVALIDE ---- (!)");
 			}
 		}
+		
+	}
+	
+	/**
+	 * Nom 			: afficherResultat
+	 * Parametre 	: 	@param guessWho
+	 * 					@param play
+	 * Sortie 		: 	void 
+	 * Description : Afficher le resultat de la derniere partie 
+	 * 					- Le sous-graphe
+	 * 					- La chaine de contact entre les deux individus 
+	 * 					- Le nombre de questions posees 
+	 * 					- Les individus trouves 
+	 * 					- Les individus corriges 
+	 * 					- Les caracteristiques indesirables 
+	 **/
+	public static void afficherResultat(SocialGraph guessWho, Identifier play){
+		
+		guessWho.afficherSubGraphMap(); 
+
+		guessWho.afficherChaineContacts();
+
+		System.out.println("Nombre de questions posees : " + play.getNumberOfQuestionsAsked()); 
+
+		String[] individus = play.getIndividuTrouve(); 
+		System.out.println("Individus mysteres trouves : " + individus[0] + ", " + individus[1]);
+
+		if(play.getIndividuCorrige()[0] != "null" && play.getIndividuCorrige()[1] != "null"){
+				System.out.println("Individus mysteres non trouves : " + play.getIndividuCorrige()[0] + ", " + play.getIndividuCorrige()[1]);
+		}
+
+		String[] caracteristiquesIndesirables = {guessWho.getArcsIndesirables()[0], guessWho.getArcsIndesirables()[1], guessWho.getArcsIndesirables()[2]};  
+		System.out.println("Les trois caracteristiques indesirables sont : " + caracteristiquesIndesirables[0] + ", " + caracteristiquesIndesirables[1] + " et " + caracteristiquesIndesirables[2]); 
 		
 	}
 
